@@ -40,3 +40,5 @@ function addTransaction(e) {
 function genrateID() {
   return Math.floor(Math.random() * 1000000000);
 }
+
+// Add Transaction To DOM list
