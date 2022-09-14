@@ -42,3 +42,47 @@ function genrateID() {
 }
 
 // Add Transaction To DOM list
+function addTransactionToDOM(transaction) {
+  // Get sign
+  const sign = transaction.amount < 0 ? "-" : "+";
+
+  const item = document.createElement("li");
+
+  // Add class based on value
+  item.classList.add(transaction.amount < 0 ? "minus" : "plus");
+
+  item.innerHTML = `
+     ${transaction.text} <span>${sign}
+     ${math.abs(transaction.amount)}</span>
+     <button class='delete-btn' onclick='removeTransaction(${
+       transaction.id
+     })'>x</button>
+    `;
+
+  list.appendChild(item);
+}
+
+// Remove transaction
+function removeTransaction(id) {
+  transactions = transactions.filter((transaction) => transaction.id !== id);
+
+  updateLocalStorage();
+
+  init();
+}
+
+// UpdateLocalStorage
+function updateLocalStorage() {
+  localStorage.setItem("transactions", JSON.stringify(transactions));
+}
+
+function init() {
+  list.innerHTML = "";
+
+  transactions.forEach(addTransactionToDOM);
+  updateValues();
+}
+
+init();
+
+form.addEventListener("submit", addTransaction);
