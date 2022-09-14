@@ -31,6 +31,10 @@ function addTransaction(e) {
 
     transactions.push(transaction);
 
+    updateValues();
+
+    updateLocalStorage();
+
     text.value = "";
     amount.value = "";
   }
@@ -53,7 +57,7 @@ function addTransactionToDOM(transaction) {
 
   item.innerHTML = `
      ${transaction.text} <span>${sign}
-     ${math.abs(transaction.amount)}</span>
+     ${Math.abs(transaction.amount)}</span>
      <button class='delete-btn' onclick='removeTransaction(${
        transaction.id
      })'>x</button>
